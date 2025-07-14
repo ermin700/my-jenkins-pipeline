@@ -3,17 +3,17 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        echo 'Building the app...'
+        sh 'docker build -t my-app:latest .'
       }
     }
     stage('Test') {
       steps {
-        echo 'Running tests...'
+        sh 'npm test'  // or pytest, maven test, etc.
       }
     }
     stage('Deploy') {
       steps {
-        echo 'Deploying to Kubernetes...'
+        sh 'kubectl apply -f k8s/deployment.yaml'
       }
     }
   }
