@@ -1,21 +1,31 @@
 pipeline {
-  agent any
-  stages {
-    stage('Build') {
-      steps {
-        echo 'Building the app...'
-      }
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Clone the repository from GitHub
+                git branch: 'main', url: 'https://github.com/ermin700/my-jenkins-pipeline.git'
+            }
+        }
+
+        stage('Verify') {
+            steps {
+                // Simple verification step
+                echo "Repository cloned successfully!"
+                sh 'ls -la'  // List files in the workspace
+            }
+        }
     }
-    stage('Test') {
-      steps {
-        echo 'Running tests...'
-      }
+
+    post {
+        success {
+            echo "Pipeline completed successfully!"
+        }
+        failure {
+            echo "Pipeline failed. Check the logs for details."
+        }
     }
-    stage('Deploy') {
-      steps {
-        echo 'Deploying to Kubernetes...'
-      }
-    }
-  }
 }
+
 
