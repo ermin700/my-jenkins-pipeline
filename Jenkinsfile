@@ -4,28 +4,16 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Clone the repository from GitHub
+                // Properly clone the Git repo
                 git branch: 'main', url: 'https://github.com/ermin700/my-jenkins-pipeline.git'
             }
         }
 
         stage('Verify') {
             steps {
-                // Simple verification step
                 echo "Repository cloned successfully!"
-                sh 'ls -la'  // List files in the workspace
+                sh 'ls -la'  // Verify files
             }
         }
     }
-
-    post {
-        success {
-            echo "Pipeline completed successfully!"
-        }
-        failure {
-            echo "Pipeline failed. Check the logs for details."
-        }
-    }
 }
-
-
